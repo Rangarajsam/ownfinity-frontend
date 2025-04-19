@@ -1,6 +1,7 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
-import { API_URL } from "../../config/generalConfig";
+import { API_URL } from "@/app/config/generalConfig";
+import api from "@/app/utils/axios";
 
 const loadUserFromStorage = () => {
     if (typeof window !== "undefined") {
@@ -27,7 +28,7 @@ export const loginUser = createAsyncThunk(
     "auth/loginUser",
     async (creadentials:{email:string, password:string}, {rejectWithValue}) => {
         try {
-            const response = await axios.post(`${API_URL}/login`, creadentials);
+            const response = await api.post(`${API_URL}/login`, creadentials);
             return response.data;
         }
         catch (error:any) {
