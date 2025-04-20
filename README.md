@@ -46,7 +46,17 @@ npm run dev
 - Image Uploads: AWS S3
 
 ## Project Structure
-src/ ├── app/ # Next.js app directory │ ├── components/ # Reusable components │ ├── store/ # Redux store and slices │ ├── utils/ # Utility functions │ ├── config/ # Configuration files │ └── pages/ # Page components ├── public/ # Static assets ├── styles/ # Global styles
+```
+src/
+├── app/                # Next.js app directory
+│   ├── components/     # Reusable components
+│   ├── store/          # Redux store and slices
+│   ├── utils/          # Utility functions
+│   ├── config/         # Configuration files
+│   └── pages/          # Page components
+├── public/             # Static assets
+├── styles/             # Global styles
+```
 
 
 ## License
