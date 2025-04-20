@@ -36,7 +36,17 @@ NEXT_PUBLIC_API_URL=<your-api-url>
 ### 4. Run the app
 npm run dev
 
+```
+
 ## Technologies Used
+
+Framework: Next.js
+State Management: Redux Toolkit
+Styling: Tailwind CSS
+API Requests: Axios
+Image Uploads: AWS S3
+
+## Project Structure
 
 src/
 ├── app/                # Next.js app directory
