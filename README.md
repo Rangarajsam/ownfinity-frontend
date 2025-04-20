@@ -27,19 +27,18 @@ Follow these steps to set up and run the project locally:
 git clone https://github.com/your-username/ownfinity-frontend.git
 cd ownfinity-frontend
 
-### 2. Install Dependencies
+2. Install Dependencies
 pnpm install
 
-### 3. Set Up Environment Variables
+3. Set Up Environment Variables
 NEXT_PUBLIC_API_URL=<your-api-url>
 
-### 4. Run the app
+4. Run the app
 npm run dev
 
 ```
 
 ## Technologies Used
-
 Framework: Next.js
 State Management: Redux Toolkit
 Styling: Tailwind CSS
@@ -47,7 +46,6 @@ API Requests: Axios
 Image Uploads: AWS S3
 
 ## Project Structure
-
 src/
 ├── app/                # Next.js app directory
 │   ├── components/     # Reusable components
