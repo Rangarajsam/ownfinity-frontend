@@ -39,11 +39,11 @@ npm run dev
 ```
 
 ## Technologies Used
-Framework: Next.js
-State Management: Redux Toolkit
-Styling: Tailwind CSS
-API Requests: Axios
-Image Uploads: AWS S3
+- Framework: Next.js
+- State Management: Redux Toolkit
+- Styling: Tailwind CSS
+- API Requests: Axios
+- Image Uploads: AWS S3
 
 ## Project Structure
 src/
