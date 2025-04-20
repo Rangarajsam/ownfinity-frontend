@@ -4,7 +4,7 @@ import Image from "next/image";
 const ProductImage = ({ imageUrl, imageAlt, width, height }: { imageUrl: string, imageAlt: string, width: number, height: number }) => {
     return (
         <Image
-            src={imageUrl || "/no-image.png"}
+            src={imageUrl || "/no-image.jpg"}
             alt={imageAlt}
             width={width}
             height={height}
