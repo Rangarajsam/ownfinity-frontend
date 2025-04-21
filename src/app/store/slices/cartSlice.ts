@@ -112,13 +112,13 @@ export const clearCart = createAsyncThunk(
     }
 );
 interface CartItem {
-    _id: string; // Unique identifier for the cart item
-    productId: string; // ID of the product
-    quantity: number; // Quantity of the product in the cart
+    _id: string; 
+    productId: string; 
+    quantity: number; 
     productDetails: {
-      productName: string; // Name of the product
-      price: number; // Price of the product
-      availableItems: number; // Number of items available in stock
+      productName: string; 
+      price: number; 
+      availableItems: number; 
     };
   }
 const getTotalPrice = (cartItems: CartItem[]) => {

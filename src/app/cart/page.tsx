@@ -27,9 +27,12 @@ const CartListPage = () => {
         const quantity = eachItemQuantity[productId] ? eachItemQuantity[productId] : currentQuantity;
         return quantity;
     }
-
+    
     const totalPrice = productsToList.reduce((total, item) => {
-        return total + (item.productDetails.price * quantityToShow(item._id, item.quantity));
+        if ('productDetails' in item) {
+            return total + (item.productDetails.price * quantityToShow(item._id, item.quantity));
+        }
+        return total;
     }, 0);
 
     const handlePlaceOrder = () => {
