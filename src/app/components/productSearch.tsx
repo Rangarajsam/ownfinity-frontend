@@ -17,7 +17,7 @@ const ProductSearch = () => {
     const dispatch = useDispatch();
     const router = useRouter();
 
-    const handleGetProducts = async (query?: string) => {
+    const handleGetProducts = async (query: string = "") => {
         try {
             if (query !== "" && query.length > 1) {
                 const searchQuery = `?search=${query}`;
