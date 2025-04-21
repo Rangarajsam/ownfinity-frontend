@@ -23,7 +23,7 @@ interface SideFilterProps {
     setFilters: Dispatch<SetStateAction<FilterSection[]>>;
 }
 const SideFilter = ({ filters, setFilters }: SideFilterProps) => {
-    const [categoryFilters, setCategoryFilters] = useState<string[]>([]);
+    const [categoryFilters] = useState<string[]>([]);
     const dispatch = useDispatch<AppDispatch>();
     const productSearchQuery = useSelector((state: any) => state.product.productSearchQuery);
 

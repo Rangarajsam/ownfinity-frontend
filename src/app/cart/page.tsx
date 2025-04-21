@@ -18,7 +18,7 @@ const CartListPage = () => {
     };
 
     const handleUpdateQuantity = (e: React.ChangeEvent<HTMLInputElement>, productId: string) => {
-        let itemQuantity = { ...eachItemQuantity };
+        const itemQuantity = { ...eachItemQuantity };
         itemQuantity[productId] = parseInt(e.target.value);
         setEachItemQuantity(itemQuantity);
     };

@@ -10,12 +10,12 @@ export default function Login() {
     const [password, setPassword] = useState('');
     const dispatch = useDispatch<AppDispatch>();
     const router = useRouter();
-    const { loading, error, user } = useSelector((state: RootState) => state.auth);
+    const { loading } = useSelector((state: RootState) => state.auth);
 
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
         try {
-            let resultAction = await dispatch(loginUser({ email, password })).unwrap();
+            const resultAction = await dispatch(loginUser({ email, password })).unwrap();
             if(resultAction) {
                 router.push("/product/list");
             }

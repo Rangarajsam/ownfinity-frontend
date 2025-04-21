@@ -54,16 +54,16 @@ const getStringQuery = (e: React.ChangeEvent<HTMLInputElement>, currentFilter:st
     const { name, value, checked } = e.target;
     const updatedFilters = [...currentFilter];
     let query = '';
-    let connector = currentQuery.includes('?') ? '&' : '?';
+    const connector = currentQuery.includes('?') ? '&' : '?';
     if (checked) {
         updatedFilters.push(value);
         const encodedQuery = encodeURIComponent(name.split("-")[0] || "");
         query = `${currentQuery}${connector}${encodedQuery}=${updatedFilters.join(',')}`;
     } else {
-        let combinedQuery = `category=${value}`
+        const combinedQuery = `category=${value}`
         const index = currentQuery.indexOf(combinedQuery);
         if (index > -1) {
-            let queryConnector = currentQuery.charAt(index - 1);
+            const queryConnector = currentQuery.charAt(index - 1);
             query = currentQuery.replace(`${queryConnector}${combinedQuery}`, "");
             query = query.charAt(0) === '&' ? replaceCharAt(query,0,"?") : query;
         }

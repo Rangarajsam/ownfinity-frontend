@@ -18,8 +18,11 @@ export const registerUser = createAsyncThunk(
             const response = await axios.post(`${API_URL}/signUp`, creadentials);
             return response.data;
         }
-        catch (error:any) {
-            return rejectWithValue(error.response.data || "Failed to register");
+        catch (error:unknown) {
+            if (axios.isAxiosError(error) && error.response) {
+                return rejectWithValue(error.response.data || "Failed to register");
+            }
+            return rejectWithValue("Failed to register");
         }
     }
 );
@@ -31,8 +34,11 @@ export const loginUser = createAsyncThunk(
             const response = await api.post(`${API_URL}/login`, creadentials);
             return response.data;
         }
-        catch (error:any) {
-            return rejectWithValue(error.response.data || "Failed to login");
+        catch (error:unknown) {
+            if (axios.isAxiosError(error) && error.response) {
+                return rejectWithValue(error.response.data || "Failed to login");
+            }
+            return rejectWithValue("Failed to login");
         }
 
     }
@@ -57,8 +63,11 @@ export const logoutUser = createAsyncThunk(
             );
             return response.data;
         }
-        catch (error:any) {
-            return rejectWithValue(error.response || "Failed to logout");
+        catch (error:unknown) {
+            if (axios.isAxiosError(error) && error.response) {
+                return rejectWithValue(error.response.data || "Failed to logout");
+            }
+            return rejectWithValue("Failed to logout");
         }
     }
 );

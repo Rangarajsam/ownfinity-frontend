@@ -13,7 +13,7 @@ import SideFilter from '@/app/components/sideFilter'
 import MobileFilter from '@/app/components/mobileFilter'
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { AppDispatch } from '@/app/store';
+import { AppDispatch, RootState } from '@/app/store';
 import { listAllProducts } from '@/app/store/slices/productSlice';
 import { setProductSearchQuery } from '@/app/store/slices/productSlice'
 import { getUpdatedSortByValue, getAvailableFilterCategories } from '@/app/product/utils/productUtils';
@@ -31,8 +31,8 @@ function classNames(...classes: (string | boolean | undefined | null)[]) : strin
 
 export default function List() {
     const dispatch = useDispatch<AppDispatch>();
-    const products = useSelector((state: any) => state.product.products);
-    const productSearchQuery = useSelector((state: any) => state.product.productSearchQuery);
+    const products = useSelector((state: RootState) => state.product.products);
+    const productSearchQuery = useSelector((state: RootState) => state.product.productSearchQuery);
     const [filters, setFilters] = useState<{ id: string; name: string; options: { value: string; label: string; checked: boolean; }[]; }[]>([]);
 
     const handleGetProducts = async (query?:string) => {
@@ -46,7 +46,7 @@ export default function List() {
 
     const sortProducts = (option: string) => {
         let query = productSearchQuery;
-        let connector = productSearchQuery.includes('?') ? '&' : '?';
+        const connector = productSearchQuery.includes('?') ? '&' : '?';
         switch (option) {
             case 'Newest':
                 query = getUpdatedSortByValue(query, "createdAt:desc", `${productSearchQuery}${connector}sortBy=createdAt:desc`);

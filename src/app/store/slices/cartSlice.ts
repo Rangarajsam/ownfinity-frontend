@@ -21,8 +21,11 @@ export const addToCart = createAsyncThunk(
                 }
             );
             return response.data;
-        } catch (error: any) {
-            return rejectWithValue(error.response.data || "Failed to add to cart");
+        } catch (error: unknown) {
+            if (axios.isAxiosError(error) && error.response) {
+                return rejectWithValue(error.response.data || "Failed to add to cart");
+            }
+            return rejectWithValue("Failed to add to cart");
         }
     }
 );
@@ -45,8 +48,11 @@ export const removeFromCart = createAsyncThunk(
                 }
             );
             return response.data;
-        } catch (error: any) {
-            return rejectWithValue(error.response.data || "Failed to remove from cart");
+        } catch (error: unknown) {
+            if (axios.isAxiosError(error) && error.response) {
+                return rejectWithValue(error.response.data || "Failed to remove from cart");
+            }
+            return rejectWithValue("Failed to remove from cart");
         }
     }
 );
@@ -69,8 +75,11 @@ export const getCartItems = createAsyncThunk(
                 }
             );
             return response.data;
-        } catch (error: any) {
-            return rejectWithValue(error.response.data || "Failed to fetch cart items");
+        } catch (error: unknown) {
+            if (axios.isAxiosError(error) && error.response) {
+                return rejectWithValue(error.response.data || "Failed to fetch cart items");
+            }
+            return rejectWithValue("Failed to fetch cart items");
         }
     }
 );
@@ -93,11 +102,15 @@ export const clearCart = createAsyncThunk(
                 }
             );
             return response.data;
-        } catch (error: any) {
-            return rejectWithValue(error.response.data || "Failed to clear cart");
+        } catch (error: unknown) {
+            if (axios.isAxiosError(error) && error.response) {
+                return rejectWithValue(error.response.data || "Failed to clear cart");
+            }
+            return rejectWithValue("Failed to clear cart");
         }
     }
 );
+
 const getTotalPrice = (cartItems: any[]) => {
     return cartItems.reduce((total, item) => {
         return total + (item.productDetails.price * item.quantity);

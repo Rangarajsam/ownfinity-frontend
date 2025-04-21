@@ -17,9 +17,6 @@ interface Product {
     brand: string;
     stock: number;
 }
-interface ProductListProps {
-    products: Product[];
-}
 
 const ProductDescription = () => {
     const dispatch = useDispatch<AppDispatch>();
@@ -38,7 +35,7 @@ const ProductDescription = () => {
     };
     const handleGetProduct = async () => {
         try {
-            let productToView = await dispatch(getProductById(slug)).unwrap();
+            const productToView = await dispatch(getProductById(slug)).unwrap();
             setProduct(productToView?.[0]);
         } catch (error) {
             console.error("Error fetching products:", error);

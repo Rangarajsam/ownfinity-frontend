@@ -21,8 +21,11 @@ export const AddToWishList = createAsyncThunk(
                 }
             );
             return response.data;
-        } catch (error: any) {
-            return rejectWithValue(error.response.data || "Failed to add to wishlist");
+        } catch (error: unknown) {
+            if (axios.isAxiosError(error) && error.response) {
+                return rejectWithValue(error.response.data || "Failed to add to wishlist");
+            }
+            return rejectWithValue("Failed to add to wishlist");
         }
     }
 );
@@ -45,8 +48,11 @@ export const removeFromWishlist = createAsyncThunk(
                 }
             );
             return response.data;
-        } catch (error: any) {
-            return rejectWithValue(error.response.data || "Failed to remove from wishlist");
+        } catch (error: unknown) {
+            if (axios.isAxiosError(error) && error.response) {
+                return rejectWithValue(error.response.data || "Failed to remove from wishlist");
+            }
+            return rejectWithValue("Failed to remove from wishlist");
         }
     }
 );
@@ -69,8 +75,11 @@ export const getWishlistItems = createAsyncThunk(
                 }
             );
             return response.data;
-        } catch (error: any) {
-            return rejectWithValue(error.response.data || "Failed to fetch wishlist items");
+        } catch (error: unknown) {
+            if (axios.isAxiosError(error) && error.response) {
+                return rejectWithValue(error.response.data || "Failed to fetch wishlist items");
+            }
+            return rejectWithValue("Failed to fetch wishlist items");
         }
     }
 );
