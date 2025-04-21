@@ -11,21 +11,6 @@ interface Product {
     brand: string;
     stock: number;
 }
-interface ProductListProps {
-    products: Product[];
-}
-
-function getBooksFilter(inputValue: string) {
-    const lowerCasedInputValue = inputValue.toLowerCase()
-
-    return function productFilter(product: Product) {
-        return (
-            !inputValue ||
-            product.name.toLowerCase().includes(lowerCasedInputValue) ||
-            product.description.toLowerCase().includes(lowerCasedInputValue)
-        )
-    }
-}
 
 const ProductSearch = () => {
     const [products, setProducts] = useState<Product[]>([]);
@@ -34,7 +19,7 @@ const ProductSearch = () => {
 
     const handleGetProducts = async (query?: string) => {
         try {
-            if (query !== "" && query.length > 1) {
+            if (query && query !== "" && query.length > 1) {
                 let searchQuery = `?search=${query}`;
                 let listofProducts = await dispatch(listAllProducts(searchQuery)).unwrap();
                 setProducts(listofProducts.products);
