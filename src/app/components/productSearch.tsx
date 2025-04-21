@@ -1,8 +1,9 @@
-import { useEffect, useState } from "react"
+import { useState } from "react"
 import { useCombobox } from "downshift";
 import { listAllProducts, setSelectedProduct } from "@/app/store/slices/productSlice";
 import { useDispatch } from "react-redux";
 import { useRouter } from "next/navigation";
+import { AppDispatch } from "@/app/store/store";
 interface Product {
     _id: string;
     description: string;
@@ -14,7 +15,7 @@ interface Product {
 
 const ProductSearch = () => {
     const [products, setProducts] = useState<Product[]>([]);
-    const dispatch = useDispatch();
+    const dispatch = useDispatch<AppDispatch>();
     const router = useRouter();
 
     const handleGetProducts = async (query?: string) => {
