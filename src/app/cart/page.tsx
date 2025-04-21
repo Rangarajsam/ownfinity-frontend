@@ -27,7 +27,6 @@ const CartListPage = () => {
         const quantity = eachItemQuantity[productId] ? eachItemQuantity[productId] : currentQuantity;
         return quantity;
     }
-    
     const totalPrice = productsToList.reduce((total, item) => {
         if ('productDetails' in item) {
             return total + (item.productDetails.price * quantityToShow(item._id, item.quantity));
@@ -57,37 +56,39 @@ const CartListPage = () => {
                     <h1 className="text-2xl font-bold text-gray-900 mb-4">Your Cart</h1>
                         <div className="space-y-4">
                             {productsToList.map((item) => (
-                                <div
-                                    key={item.productDetails._id}
-                                    className="flex items-center justify-between border-b border-b-gray-200 pb-4"
-                                >
-                                    <div>
-                                        <h2 className="text-lg font-semibold text-gray-900">
-                                            {item.productDetails.productName}
-                                        </h2>
-                                        <p className="text-sm text-gray-600">
-                                            Price: ${item.productDetails.price.toFixed(2)}
-                                        </p>
-                                        <p className="text-sm text-gray-600">
-                                            Total: ${item.productDetails.price * quantityToShow(item._id, item.quantity)}
-                                        </p>
+                                'productDetails' in item ? (
+                                    <div
+                                        key={item._id}
+                                        className="flex items-center justify-between border-b border-b-gray-200 pb-4"
+                                    >
+                                        <div>
+                                            <h2 className="text-lg font-semibold text-gray-900">
+                                                {item.productDetails.productName}
+                                            </h2>
+                                            <p className="text-sm text-gray-600">
+                                                Price: ${item.productDetails.price.toFixed(2)}
+                                            </p>
+                                            <p className="text-sm text-gray-600">
+                                                Total: ${item.productDetails.price * quantityToShow(item._id, item.quantity)}
+                                            </p>
+                                        </div>
+                                        <div className="flex items-center gap-4">
+                                            <input
+                                                type="number"
+                                                min="1"
+                                                value={quantityToShow(item._id, item.quantity)}
+                                                onChange={(e) => handleUpdateQuantity(e, item._id)}
+                                                className="w-16 border border-gray-300 rounded-lg text-center py-1"
+                                            />
+                                            {!productToBuy.length && <button
+                                                onClick={() => handleRemoveItem(item._id)}
+                                                className="text-red-600 hover:underline self-end"
+                                            >
+                                                Remove
+                                            </button>}
+                                        </div>
                                     </div>
-                                    <div className="flex items-center gap-4">
-                                        <input
-                                            type="number"
-                                            min="1"
-                                            value={quantityToShow(item._id, item.quantity)}
-                                            onChange={(e) => handleUpdateQuantity(e, item._id)}
-                                            className="w-16 border border-gray-300 rounded-lg text-center py-1"
-                                        />
-                                        {!productToBuy.length && <button
-                                            onClick={() => handleRemoveItem(item._id)}
-                                            className="text-red-600 hover:underline self-end"
-                                        >
-                                            Remove
-                                        </button>}
-                                    </div>
-                                </div>
+                                ) : null
                             ))}
                         </div>
                 </div>
