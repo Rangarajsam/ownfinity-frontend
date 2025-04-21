@@ -1,12 +1,13 @@
 import {createSlice, createAsyncThunk} from "@reduxjs/toolkit";
 import axios from "axios";
 import {API_URL} from "../../config/generalConfig";
+import {RootState} from "@/app/store";
 
 export const AddToWishList = createAsyncThunk(
     "wishlist/addToWishlist",
     async (productId: string, {rejectWithValue, getState}) => {
         try {
-            const state = getState() as any;
+            const state = getState() as RootState;
             const token = state.auth.user?.token;
             if (!token) {
                 throw new Error("No token found, user is not logged in.");
@@ -34,7 +35,7 @@ export const removeFromWishlist = createAsyncThunk(
     "wishlist/removeFromWishlist",
     async (id: string, {rejectWithValue, getState}) => {
         try {
-            const state = getState() as any;
+            const state = getState() as RootState;
             const token = state.auth.user?.token;
             if (!token) {
                 throw new Error("No token found, user is not logged in.");
@@ -61,7 +62,7 @@ export const getWishlistItems = createAsyncThunk(
     "wishlist/getWishlistItems",
     async (_, {rejectWithValue, getState}) => {
         try {
-            const state = getState() as any;
+            const state = getState() as RootState;
             const token = state.auth.user?.token;
             if (!token) {
                 throw new Error("No token found, user is not logged in.");

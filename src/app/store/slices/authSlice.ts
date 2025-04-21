@@ -2,6 +2,7 @@ import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
 import { API_URL } from "@/app/config/generalConfig";
 import api from "@/app/utils/axios";
+import { RootState } from "@/app/store";
 
 const loadUserFromStorage = () => {
     if (typeof window !== "undefined") {
@@ -48,7 +49,7 @@ export const logoutUser = createAsyncThunk(
     "auth/logoutUser",
     async (_, {rejectWithValue, getState}) => {
         try {
-            const state = getState() as any;
+            const state = getState() as RootState;
             const token = state.auth.user?.token;
             if (!token) {
                 throw new Error("No token found, user is not logged in.");

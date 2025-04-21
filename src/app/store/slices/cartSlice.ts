@@ -1,12 +1,13 @@
 import {createSlice, createAsyncThunk} from "@reduxjs/toolkit";
 import axios from "axios";
 import {API_URL} from "@/app/config/generalConfig";
+import {RootState} from "@/app/store";
 
 export const addToCart = createAsyncThunk(
     "cart/addToCart",
     async (productId: string, {rejectWithValue, getState}) => {
         try {
-            const state = getState() as any;
+            const state = getState() as RootState;
             const token = state.auth.user?.token;
             if (!token) {
                 throw new Error("No token found, user is not logged in.");
@@ -34,7 +35,7 @@ export const removeFromCart = createAsyncThunk(
     "cart/removeFromCart",
     async (id: string, {rejectWithValue, getState}) => {
         try {
-            const state = getState() as any;
+            const state = getState() as RootState;
             const token = state.auth.user?.token;
             if (!token) {
                 throw new Error("No token found, user is not logged in.");
@@ -61,7 +62,7 @@ export const getCartItems = createAsyncThunk(
     "cart/getCartItems",
     async (_, {rejectWithValue, getState}) => {
         try {
-            const state = getState() as any;
+            const state = getState() as RootState;
             const token = state.auth.user?.token;
             if (!token) {
                 throw new Error("No token found, user is not logged in.");
@@ -88,7 +89,7 @@ export const clearCart = createAsyncThunk(
     "cart/clearCart",
     async (_, {rejectWithValue, getState}) => {
         try {
-            const state = getState() as any;
+            const state = getState() as RootState;
             const token = state.auth.user?.token;
             if (!token) {
                 throw new Error("No token found, user is not logged in.");
@@ -110,8 +111,17 @@ export const clearCart = createAsyncThunk(
         }
     }
 );
-
-const getTotalPrice = (cartItems: any[]) => {
+interface CartItem {
+    _id: string; // Unique identifier for the cart item
+    productId: string; // ID of the product
+    quantity: number; // Quantity of the product in the cart
+    productDetails: {
+      productName: string; // Name of the product
+      price: number; // Price of the product
+      availableItems: number; // Number of items available in stock
+    };
+  }
+const getTotalPrice = (cartItems: CartItem[]) => {
     return cartItems.reduce((total, item) => {
         return total + (item.productDetails.price * item.quantity);
     }, 0);
@@ -119,7 +129,7 @@ const getTotalPrice = (cartItems: any[]) => {
 const cartSlice = createSlice({
     name: "cart",
     initialState: {
-        cartItems: [] as any[],
+        cartItems: [] as CartItem[],
         loading: false,
         error: null as unknown | null,
         totalPrice: 0,

@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import { ShoppingCartIcon, HeartIcon, CreditCardIcon } from '@heroicons/react/24/outline';
-import { useSelector, useDispatch } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { AppDispatch } from '@/app/store';
 import { addToCart } from '@/app/store/slices/cartSlice';
 import { setBuyProduct, getProductById } from '@/app/store/slices/productSlice';

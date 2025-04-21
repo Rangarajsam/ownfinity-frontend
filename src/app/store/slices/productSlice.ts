@@ -17,7 +17,7 @@ string | undefined,
     "product/listAllProducts",
     async (queries, { rejectWithValue, getState }) => {
         try {
-            const state = getState() as any;
+            const state = getState() as RootState;
             const token = state.auth.user?.token;
             if(queries?.includes("search")) {
                 isSearchQuery = true;
@@ -44,7 +44,7 @@ export const listAdminProducts = createAsyncThunk(
     "product/listAdminProducts",
     async (_, { rejectWithValue, getState }) => {
         try {
-            const state = getState() as any;
+            const state = getState() as RootState;
             const token = state.auth.user?.token;
             if (!token) {
                 throw new Error("No token found, user is not logged in.");
@@ -103,7 +103,7 @@ export const addProduct = createAsyncThunk(
     "product/addProduct",
     async (product: Product, { rejectWithValue, getState }) => {
         try {
-            const state = getState() as any;
+            const state = getState() as RootState;
             const token = state.auth.user?.token;
             if (!token) {
                 throw new Error("No token found, user is not logged in.");
@@ -129,7 +129,7 @@ export const editProduct = createAsyncThunk(
     "product/editProduct",
     async (product: Product, { rejectWithValue, getState }) => {
         try {
-            const state = getState() as any;
+            const state = getState() as RootState;
             const token = state.auth.user?.token;
             if (!token) {
                 throw new Error("No token found, user is not logged in.");
@@ -157,7 +157,7 @@ export const deleteProduct = createAsyncThunk(
     "product/deleteProduct",
     async (productId: string, { rejectWithValue, getState }) => {
         try {
-            const state = getState() as any;
+            const state = getState() as RootState;
             const token = state.auth.user?.token;
             if (!token) {
                 throw new Error("No token found, user is not logged in.");
@@ -181,7 +181,7 @@ export const getProductById = createAsyncThunk(
     "product/getProductById",
     async (productId: string, { rejectWithValue, getState }) => {
         try {
-            const state = getState() as any;
+            const state = getState() as RootState;
             const token = state.auth.user?.token;
             if (!token) {
                 throw new Error("No token found, user is not logged in.");
