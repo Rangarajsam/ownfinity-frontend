@@ -3,18 +3,26 @@ import { useCombobox } from "downshift";
 import { listAllProducts, setSelectedProduct } from "@/app/store/slices/productSlice";
 import { useDispatch } from "react-redux";
 import { useRouter } from "next/navigation";
+import { AppDispatch } from "@/app/store";
 interface Product {
-    _id: string;
+    _id: string | undefined;
     description: string;
     name: string;
     price: string;
     brand: string;
     stock: number;
 }
+interface ProductsState {
+    type: string;
+    products: Product[];
+  }
 
 const ProductSearch = () => {
-    const [products, setProducts] = useState<Product[]>([]);
-    const dispatch = useDispatch();
+    const [products, setProducts] = useState<ProductsState>({
+        type: "list",
+        products: [],
+      });
+    const dispatch = useDispatch<AppDispatch>();
     const router = useRouter();
 
     const handleGetProducts = async (query: string = "") => {
