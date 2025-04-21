@@ -30,7 +30,8 @@ const ProductSearch = () => {
             if (query !== "" && query.length > 1) {
                 const searchQuery = `?search=${query}`;
                 const listofProducts = await dispatch(listAllProducts(searchQuery)).unwrap();
-                setProducts(listofProducts.products);
+                // eslint-disable-next-line
+                setProducts(listofProducts);
             }
 
         } catch (error) {
