@@ -4,6 +4,7 @@ import api from "@/app/utils/axios";
 import axios from "axios";
 import {RootState} from "@/app/store";
 
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 let isSearchQuery = false;
 
 export const listAllProducts = createAsyncThunk<
