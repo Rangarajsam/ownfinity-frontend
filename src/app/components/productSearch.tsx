@@ -3,7 +3,7 @@ import { useCombobox } from "downshift";
 import { listAllProducts, setSelectedProduct } from "@/app/store/slices/productSlice";
 import { useDispatch } from "react-redux";
 import { useRouter } from "next/navigation";
-import { AppDispatch } from "@/app/store/store";
+import { AppDispatch } from "@/app/store";
 interface Product {
     _id: string;
     description: string;
