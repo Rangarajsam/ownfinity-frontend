@@ -53,7 +53,6 @@ const ProfilePage = () => {
         <div className="p-8">
             <h1 className="text-2xl font-bold text-gray-900 mb-6">Profile</h1>
 
-            {/* Tabs */}
             <div className="flex border-b border-gray-200 mb-6">
                 <button
                     onClick={() => setActiveTab('personalDetails')}
@@ -116,7 +115,7 @@ const ProfilePage = () => {
                                 className="mt-4 flex items-center justify-center w-[55%] bg-indigo-600 text-white py-2 px-4 rounded-lg hover:bg-indigo-700"
                             >
                                 <PencilIcon className="w-5 h-5 mr-2" />
-                                Edit Product
+                                Edit
                             </button>
                             <button
                                 onClick={() => handleDeleteProduct(product)}
@@ -132,7 +131,7 @@ const ProfilePage = () => {
             )}
 
             {activeTab === 'addProduct' && (
-                <AddProduct productToEdit={productToEdit} />
+                <AddProduct setActiveTab={setActiveTab} productToEdit={productToEdit} />
             )}
         </div>
     );

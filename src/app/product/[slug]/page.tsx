@@ -83,14 +83,14 @@ const ProductDescription = () => {
                 <div className="mx-auto w-full mt-4 flex-col flex gap-4">
                     <button
                         onClick={handleAddToWishlist}
-                        className="mt-6 mx-auto flex w-[400px] items-center justify-center bg-gray-200 text-gray-700 py-2 px-4 rounded-lg hover:bg-gray-300"
+                        className="mt-6 mx-auto flex w-full items-center justify-center bg-gray-200 text-gray-700 py-2 px-4 rounded-lg hover:bg-gray-300"
                     >
                         <HeartIcon className="w-5 h-5 mr-2" />
                         Add to Wishlist
                     </button>
                     <button
                         onClick={handleAddToCart}
-                        className="flex mx-auto w-[400px] items-center justify-center bg-indigo-600 text-white py-2 px-4 rounded-lg hover:bg-indigo-700"
+                        className="flex mx-auto w-full items-center justify-center bg-indigo-600 text-white py-2 px-4 rounded-lg hover:bg-indigo-700"
                     >
                         <ShoppingCartIcon className="w-5 h-5 mr-2" />
                         Add to Cart
@@ -99,7 +99,7 @@ const ProductDescription = () => {
             </div>
 
             <div className="lg:w-2/3">
-                <div className="bg-white p-6 rounded-lg shadow min-h-[400px]">
+                <div className="bg-white p-6 rounded-lg shadow min-h-[400px] mb-10">
                     <h1 className="text-2xl font-bold text-gray-900">{`${product.brand} - ${product.name}`}</h1>
                     <p className="mt-2 text-gray-700">{product.description}</p>
                     <p className="mt-4 text-lg font-semibold text-gray-900">Price: ${product.price}</p>

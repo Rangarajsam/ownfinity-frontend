@@ -53,9 +53,9 @@ const Register = () => {
 
   return (
     <>
-      <div className="flex min-h-full flex-1 flex-col justify-center px-6 py-12 lg:px-8">
+      <div className="flex min-h-full flex-1 flex-col justify-center px-6 mb-20 sm:mb-0 lg:px-8 mt-[-5px] sm:mt-0">
         <div className="sm:mx-auto sm:w-full sm:max-w-sm">
-          <h1 className="mt-10 text-center font-bold">Ownfinity</h1>
+          <h1 className="text-center font-bold">Ownfinity</h1>
           <h2 className="mt-10 text-center text-2xl/9 font-bold tracking-tight text-gray-900">
             Register Your Account
           </h2>

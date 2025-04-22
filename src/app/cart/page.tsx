@@ -48,7 +48,7 @@ const CartListPage = () => {
     }
 
     return (
-        <div className="flex flex-col lg:flex-row gap-8 p-8">
+        <div className="flex flex-col lg:flex-row gap-8 p-8 mb-10">
             <div className="lg:w-2/3">
                 <div className="bg-white p-6 rounded-lg shadow">
                     <h1 className="text-2xl font-bold text-gray-900 mb-4">Your Cart</h1>

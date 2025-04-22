@@ -47,6 +47,7 @@ export default function Header() {
         try {
             let resultAction = await dispatch(logoutUser()).unwrap();
             if (resultAction) {
+                setMobileMenuOpen(false)
                 router.push("/login");
             }
         }
@@ -56,6 +57,7 @@ export default function Header() {
     }
 
     const goToWishlist = () => {
+        setMobileMenuOpen(false)
         router.push("/wishlist");
     }
 
@@ -63,6 +65,7 @@ export default function Header() {
         router.push("/cart");
     }
     const goToProfile = () => {
+        setMobileMenuOpen(false)
         router.push("/profile");
     }
 
@@ -93,16 +96,16 @@ export default function Header() {
                 position="top-center"
                 reverseOrder={true}
             />
-            {!hideHeader && <header className="bg-white border-b border-gray-200 w-full fixed top-0 left-0 h-[93px] z-[999]">
+            {!hideHeader && <header className="bg-white border-b border-gray-200 w-full fixed top-0 left-0 h-[120px] sm:h-[93px] z-[999]">
                 <nav aria-label="Global" className="mx-auto flex max-w-7xl items-center justify-between p-6 lg:px-8">
                     <div className="w-1/5">
                         <a className="cursor-pointer" onClick={goToProductPage}>Ownfinity</a>
                     </div>
 
-                    <div className="w-1/2">
+                    <div className="w-1/2 hidden sm:block">
                         <ProductSearch />
                     </div>
-                    <div className="w-1/6 flex justify-end mr-10 items-center relative cursor-pointer" onClick={goToCart}>
+                    <div className="w-1/6 flex justify-end mr-[-140px] sm:mr-10 items-center relative cursor-pointer" onClick={goToCart}>
                         {cart.length > 0 && <div className="size-5 leading-5 absolute rounded-full -top-2 right-[48px] bg-red-500 
                     text-white inline-block align-middle text-center text-xs">{cart.length}</div>}
                         <ShoppingCartIcon className="size-7" />
@@ -155,6 +158,9 @@ export default function Header() {
                         </button>
                     </div>
                 </nav>
+                <div className="w-[90%] mx-auto sm:my-10 block sm:hidden mt-[-10px]">
+                    <ProductSearch />
+                </div>
                 <Dialog open={mobileMenuOpen} onClose={setMobileMenuOpen} className="lg:hidden">
                     <div className="fixed inset-0 z-10" />
                     <DialogPanel className="fixed inset-y-0 right-0 z-10 w-full overflow-y-auto bg-white px-6 py-6 sm:max-w-sm sm:ring-1 sm:ring-gray-900/10">

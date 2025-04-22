@@ -25,6 +25,7 @@ const WishlistPage = () => {
 
     const handleRemoveFromWishlist = async(e: React.MouseEvent<HTMLButtonElement>, id: string) => {
             e.preventDefault();
+            e.stopPropagation();
             try {
                 await dispatch(removeFromWishlist(id)).unwrap();
             }

@@ -7,7 +7,12 @@ import {toast} from "react-hot-toast"
 
 interface Product { _id?:string, name: string; category: string; price: number; brand: string, description: string, stock: number, image?: File, images?: string[]; }
 
-const AddProduct: React.FC<{ productToEdit: Product | null }> = ({ productToEdit }) => {
+interface AddProductProps {
+    setActiveTab: React.Dispatch<React.SetStateAction<'personalDetails' | 'myProducts' | 'addProduct'>>;
+    productToEdit: Product | null;
+}
+
+const AddProduct = ({productToEdit, setActiveTab}:AddProductProps) => {
     const [isEditing, setIsEditing] = useState(false);
     const [formData, setFormData] = useState({
         name: '',
@@ -41,6 +46,15 @@ const AddProduct: React.FC<{ productToEdit: Product | null }> = ({ productToEdit
         try {
             await dispatch(addProduct(formData)).unwrap();
             toast.success("Product added successfully");
+            setFormData({
+                name: '',
+                category: '',
+                price: 0,
+                description: '',
+                brand: '',
+                stock: 0,
+                image: undefined,
+            });
         }
         catch (error) {
             console.error("Error adding product:", error);
@@ -52,6 +66,7 @@ const AddProduct: React.FC<{ productToEdit: Product | null }> = ({ productToEdit
         try {
             await dispatch(editProduct({ ...formData, _id: productToEdit?._id })).unwrap();
             toast.success("Product edited successfully");
+            setActiveTab('myProducts');
         } catch (error) {
             console.error("Error editing product:", error);
         }    

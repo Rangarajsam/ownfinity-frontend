@@ -57,8 +57,8 @@ const getStringQuery = (e: React.ChangeEvent<HTMLInputElement>, currentFilter:st
     let connector = currentQuery.includes('?') ? '&' : '?';
     if (checked) {
         updatedFilters.push(value);
-        const encodedQuery = encodeURIComponent(name.split("-")[0] || "");
-        query = `${currentQuery}${connector}${encodedQuery}=${updatedFilters.join(',')}`;
+        const type = name.split("-")[0] || "";
+        query = `${currentQuery}${connector}${type}=${encodeURIComponent(updatedFilters[0])}`;
     } else {
         let combinedQuery = `category=${value}`
         const index = currentQuery.indexOf(combinedQuery);
