@@ -57,6 +57,11 @@ src/
 ├── public/             # Static assets
 ├── styles/             # Global styles
 ```
+## Live website 
+You can create your own account. no verification implemented yet. for backend code, please use this repo https://github.com/Rangarajsam/ownfinity-frontend
+url : https://app.ownfinity.rangarajexplore.in
+test username : testownfinity@gmail.com
+password : testownfinity
 
 
 ## License
