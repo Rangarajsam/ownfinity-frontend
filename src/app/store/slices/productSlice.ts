@@ -2,21 +2,23 @@ import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import { API_URL } from "../../config/generalConfig";
 import api from "@/app/utils/axios";
 import axios from "axios";
+import {RootState} from "@/app/store";
 
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 let isSearchQuery = false;
 
 export const listAllProducts = createAsyncThunk<
-any, 
+Product[], 
 string | undefined, 
 {
-    state: any;
+    state: RootState;
     rejectValue: string;
 }
 >(
     "product/listAllProducts",
     async (queries, { rejectWithValue, getState }) => {
         try {
-            const state = getState() as any;
+            const state = getState() as RootState;
             const token = state.auth.user?.token;
             if(queries?.includes("search")) {
                 isSearchQuery = true;
@@ -30,8 +32,11 @@ string | undefined,
                 }
             });
             return response.data;
-        } catch (error: any) {
-            return rejectWithValue(error.response.data || "Failed to fetch products");
+        } catch (error: unknown) {
+            if (axios.isAxiosError(error) && error.response) {
+                return rejectWithValue(error.response.data || "Failed to fetch products");
+            }
+            return rejectWithValue("Failed to fetch products");
         }
     }
 );
@@ -40,7 +45,7 @@ export const listAdminProducts = createAsyncThunk(
     "product/listAdminProducts",
     async (_, { rejectWithValue, getState }) => {
         try {
-            const state = getState() as any;
+            const state = getState() as RootState;
             const token = state.auth.user?.token;
             if (!token) {
                 throw new Error("No token found, user is not logged in.");
@@ -51,8 +56,11 @@ export const listAdminProducts = createAsyncThunk(
                 }
             });
             return response.data;
-        } catch (error: any) {
-            return rejectWithValue(error.response.data || "Failed to fetch products");
+        } catch (error: unknown) {
+            if (axios.isAxiosError(error) && error.response) {
+                return rejectWithValue(error.response.data || "Failed to fetch products");
+            }
+            return rejectWithValue("Failed to fetch products");
         }
     }
 );
@@ -96,7 +104,7 @@ export const addProduct = createAsyncThunk(
     "product/addProduct",
     async (product: Product, { rejectWithValue, getState }) => {
         try {
-            const state = getState() as any;
+            const state = getState() as RootState;
             const token = state.auth.user?.token;
             if (!token) {
                 throw new Error("No token found, user is not logged in.");
@@ -108,8 +116,12 @@ export const addProduct = createAsyncThunk(
                 }
             });
             return response.data;
-        } catch (error: any) {
-            return rejectWithValue(error.response.data || "Failed to add product");
+        } 
+        catch (error: unknown) {
+            if (axios.isAxiosError(error) && error.response) {
+                return rejectWithValue(error.response.data || "Failed to add product");
+            }
+            return rejectWithValue("Failed to add product");
         }
     }
 );
@@ -118,7 +130,7 @@ export const editProduct = createAsyncThunk(
     "product/editProduct",
     async (product: Product, { rejectWithValue, getState }) => {
         try {
-            const state = getState() as any;
+            const state = getState() as RootState;
             const token = state.auth.user?.token;
             if (!token) {
                 throw new Error("No token found, user is not logged in.");
@@ -132,8 +144,12 @@ export const editProduct = createAsyncThunk(
                 }
             });
             return response.data;
-        } catch (error: any) {
-            return rejectWithValue(error.response.data || "Failed to edit product");
+        } 
+        catch (error: unknown) {
+            if (axios.isAxiosError(error) && error.response) {
+                return rejectWithValue(error.response.data || "Failed to edit product");
+            }
+            return rejectWithValue("Failed to edit product");
         }
     }
 );
@@ -142,7 +158,7 @@ export const deleteProduct = createAsyncThunk(
     "product/deleteProduct",
     async (productId: string, { rejectWithValue, getState }) => {
         try {
-            const state = getState() as any;
+            const state = getState() as RootState;
             const token = state.auth.user?.token;
             if (!token) {
                 throw new Error("No token found, user is not logged in.");
@@ -153,8 +169,11 @@ export const deleteProduct = createAsyncThunk(
                 }
             });
             return response.data;
-        } catch (error: any) {
-            return rejectWithValue(error.response.data || "Failed to delete product");
+        } catch (error: unknown) {
+            if (axios.isAxiosError(error) && error.response) {
+                return rejectWithValue(error.response.data || "Failed to delete product");
+            }
+            return rejectWithValue("Failed to delete product");
         }
     }
 );
@@ -163,7 +182,7 @@ export const getProductById = createAsyncThunk(
     "product/getProductById",
     async (productId: string, { rejectWithValue, getState }) => {
         try {
-            const state = getState() as any;
+            const state = getState() as RootState;
             const token = state.auth.user?.token;
             if (!token) {
                 throw new Error("No token found, user is not logged in.");
@@ -174,8 +193,11 @@ export const getProductById = createAsyncThunk(
                 }
             });
             return response.data;
-        } catch (error: any) {
-            return rejectWithValue(error.response.data || "Failed to fetch product");
+        } catch (error: unknown) {
+            if (axios.isAxiosError(error) && error.response) {
+                return rejectWithValue(error.response.data || "Failed to fetch product");
+            }
+            return rejectWithValue("Failed to fetch product");
         }
     }
 );

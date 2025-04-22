@@ -46,7 +46,9 @@ const ProfilePage = () => {
     }
 
     useEffect(() => {
-        user?.isAdmin && activeTab === 'myProducts' && handleListingAdminProducts();
+        if(user?.isAdmin && activeTab === 'myProducts') {
+            handleListingAdminProducts();
+        }
     }, [user, activeTab]);
 
     return (

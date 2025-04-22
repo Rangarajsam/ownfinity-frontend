@@ -36,7 +36,6 @@ export default function Header() {
     const dispatch = useDispatch<AppDispatch>();
     const user = useSelector((state: RootState) => state.auth.user);
     const cart = useSelector((state: RootState) => state.cart.cartItems);
-    const products = useSelector((state: RootState) => state.product.products);
     const productLoading = useSelector((state: RootState) => state.product.loading);
     const authLoading = useSelector((state: RootState) => state.auth.loading);
     const cartLoading = useSelector((state: RootState) => state.cart.loading);
@@ -45,7 +44,7 @@ export default function Header() {
 
     const handleLogout = async () => {
         try {
-            let resultAction = await dispatch(logoutUser()).unwrap();
+            const resultAction = await dispatch(logoutUser()).unwrap();
             if (resultAction) {
                 setMobileMenuOpen(false)
                 router.push("/login");

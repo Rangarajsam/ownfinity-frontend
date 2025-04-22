@@ -1,12 +1,13 @@
 import {createSlice, createAsyncThunk} from "@reduxjs/toolkit";
 import axios from "axios";
 import {API_URL} from "@/app/config/generalConfig";
+import {RootState} from "@/app/store";
 
 export const addToCart = createAsyncThunk(
     "cart/addToCart",
     async (productId: string, {rejectWithValue, getState}) => {
         try {
-            const state = getState() as any;
+            const state = getState() as RootState;
             const token = state.auth.user?.token;
             if (!token) {
                 throw new Error("No token found, user is not logged in.");
@@ -21,8 +22,11 @@ export const addToCart = createAsyncThunk(
                 }
             );
             return response.data;
-        } catch (error: any) {
-            return rejectWithValue(error.response.data || "Failed to add to cart");
+        } catch (error: unknown) {
+            if (axios.isAxiosError(error) && error.response) {
+                return rejectWithValue(error.response.data || "Failed to add to cart");
+            }
+            return rejectWithValue("Failed to add to cart");
         }
     }
 );
@@ -31,7 +35,7 @@ export const removeFromCart = createAsyncThunk(
     "cart/removeFromCart",
     async (id: string, {rejectWithValue, getState}) => {
         try {
-            const state = getState() as any;
+            const state = getState() as RootState;
             const token = state.auth.user?.token;
             if (!token) {
                 throw new Error("No token found, user is not logged in.");
@@ -45,8 +49,11 @@ export const removeFromCart = createAsyncThunk(
                 }
             );
             return response.data;
-        } catch (error: any) {
-            return rejectWithValue(error.response.data || "Failed to remove from cart");
+        } catch (error: unknown) {
+            if (axios.isAxiosError(error) && error.response) {
+                return rejectWithValue(error.response.data || "Failed to remove from cart");
+            }
+            return rejectWithValue("Failed to remove from cart");
         }
     }
 );
@@ -55,7 +62,7 @@ export const getCartItems = createAsyncThunk(
     "cart/getCartItems",
     async (_, {rejectWithValue, getState}) => {
         try {
-            const state = getState() as any;
+            const state = getState() as RootState;
             const token = state.auth.user?.token;
             if (!token) {
                 throw new Error("No token found, user is not logged in.");
@@ -69,8 +76,11 @@ export const getCartItems = createAsyncThunk(
                 }
             );
             return response.data;
-        } catch (error: any) {
-            return rejectWithValue(error.response.data || "Failed to fetch cart items");
+        } catch (error: unknown) {
+            if (axios.isAxiosError(error) && error.response) {
+                return rejectWithValue(error.response.data || "Failed to fetch cart items");
+            }
+            return rejectWithValue("Failed to fetch cart items");
         }
     }
 );
@@ -79,7 +89,7 @@ export const clearCart = createAsyncThunk(
     "cart/clearCart",
     async (_, {rejectWithValue, getState}) => {
         try {
-            const state = getState() as any;
+            const state = getState() as RootState;
             const token = state.auth.user?.token;
             if (!token) {
                 throw new Error("No token found, user is not logged in.");
@@ -93,12 +103,25 @@ export const clearCart = createAsyncThunk(
                 }
             );
             return response.data;
-        } catch (error: any) {
-            return rejectWithValue(error.response.data || "Failed to clear cart");
+        } catch (error: unknown) {
+            if (axios.isAxiosError(error) && error.response) {
+                return rejectWithValue(error.response.data || "Failed to clear cart");
+            }
+            return rejectWithValue("Failed to clear cart");
         }
     }
 );
-const getTotalPrice = (cartItems: any[]) => {
+interface CartItem {
+    _id: string; 
+    productId: string; 
+    quantity: number; 
+    productDetails: {
+      productName: string; 
+      price: number; 
+      availableItems: number; 
+    };
+  }
+const getTotalPrice = (cartItems: CartItem[]) => {
     return cartItems.reduce((total, item) => {
         return total + (item.productDetails.price * item.quantity);
     }, 0);
@@ -106,7 +129,7 @@ const getTotalPrice = (cartItems: any[]) => {
 const cartSlice = createSlice({
     name: "cart",
     initialState: {
-        cartItems: [] as any[],
+        cartItems: [] as CartItem[],
         loading: false,
         error: null as unknown | null,
         totalPrice: 0,

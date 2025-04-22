@@ -9,7 +9,7 @@ import { XMarkIcon, MinusIcon, PlusIcon } from '@heroicons/react/24/outline';
 import { useState, Dispatch, SetStateAction } from 'react';
 import { setProductSearchQuery } from '@/app/store/slices/productSlice';
 import { useDispatch, useSelector } from 'react-redux';
-import { AppDispatch } from '@/app/store';
+import { RootState, AppDispatch } from '@/app/store';
 import { getStringQuery, handleGetProducts } from '@/app/product/utils/productUtils';
 interface FilterOption {
     value: string;
@@ -31,14 +31,14 @@ interface MobileFilterProps {
 }
 
 const MobileFilter = ({ mobileFiltersOpen, setMobileFiltersOpen, filters, setFilters }: MobileFilterProps) => {
-    const [categoryFilters, setCategoryFilters] = useState<string[]>([]);
+    const [categoryFilters] = useState<string[]>([]);
     const dispatch = useDispatch<AppDispatch>();
-    const productSearchQuery = useSelector((state: any) => state.product.productSearchQuery);
+    const productSearchQuery = useSelector((state: RootState) => state.product.productSearchQuery);
 
     const handleCategoryChange = (e: React.ChangeEvent<HTMLInputElement>, currentFilter:string[], currentQuery: string) => {
         const query = getStringQuery(e, currentFilter, currentQuery);
         dispatch(setProductSearchQuery(query));
-        let newFilters = [{id: filters[0].id, name: filters[0].name, options: [...filters[0].options]}];
+        const newFilters = [{id: filters[0].id, name: filters[0].name, options: [...filters[0].options]}];
         newFilters[0].options.forEach((op) => {
             if(op.value === e.target.name.split('-')[1]) {
                 op.checked = e.target.checked;

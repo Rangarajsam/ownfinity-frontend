@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import { ShoppingCartIcon, HeartIcon, CreditCardIcon } from '@heroicons/react/24/outline';
-import { useSelector, useDispatch } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { AppDispatch } from '@/app/store';
 import { addToCart } from '@/app/store/slices/cartSlice';
 import { setBuyProduct, getProductById } from '@/app/store/slices/productSlice';
@@ -16,9 +16,6 @@ interface Product {
     price: string;
     brand: string;
     stock: number;
-}
-interface ProductListProps {
-    products: Product[];
 }
 
 const ProductDescription = () => {
@@ -38,7 +35,7 @@ const ProductDescription = () => {
     };
     const handleGetProduct = async () => {
         try {
-            let productToView = await dispatch(getProductById(slug)).unwrap();
+            const productToView = await dispatch(getProductById(slug)).unwrap();
             setProduct(productToView?.[0]);
         } catch (error) {
             console.error("Error fetching products:", error);

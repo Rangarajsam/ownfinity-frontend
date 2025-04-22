@@ -5,7 +5,7 @@ import { useDispatch } from "react-redux";
 import { useRouter } from "next/navigation";
 import { AppDispatch } from "@/app/store";
 interface Product {
-    _id: string;
+    _id: string | undefined;
     description: string;
     name: string;
     price: string;
@@ -18,7 +18,7 @@ const ProductSearch = () => {
     const dispatch = useDispatch<AppDispatch>();
     const router = useRouter();
 
-    const handleGetProducts = async (query?: string) => {
+    const handleGetProducts = async (query: string = "") => {
         try {
             if (query && query !== "" && query.length > 1) {
                 let searchQuery = `?search=${query}`;
@@ -33,9 +33,7 @@ const ProductSearch = () => {
 
     const {
         isOpen,
-        setIsOpen,
         getToggleButtonProps,
-        getLabelProps,
         getMenuProps,
         getInputProps,
         highlightedIndex,
