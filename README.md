@@ -40,6 +40,7 @@ npm run dev
 
 ## Technologies Used
 - Framework: Next.js
+- DB: MongoDB
 - State Management: Redux Toolkit
 - Styling: Tailwind CSS
 - API Requests: Axios
@@ -59,7 +60,7 @@ src/
 ```
 ## Live website 
 ```
-You can create your own account. no verification implemented yet. for backend code, please use this repo https://github.com/Rangarajsam/ownfinity-frontend
+You can create your own account. no verification implemented yet. for backend code, please use this repo https://github.com/Rangarajsam/ownfinity-backend
 url : https://app.ownfinity.rangarajexplore.in
 test username : testownfinity@gmail.com
 password : testownfinity
